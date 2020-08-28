@@ -12,40 +12,41 @@ function getInput(){
     console.log("value is",searchBox.value);
     let matrix = [[0,0,0],[0,0,0],[1,1,1]]
 
-    renderMatrix(3);
+    renderMatrix(matrix,N);
 }
 
-function renderMatrix(size) {
-    let array = [[0,0,0],[0,0,0],[1,1,1]]
+function renderMatrix(array,size) {
+    // let array = [[0,0,0],[0,0,0],[1,1,1]];
     let table = document.createElement("table");
     let alphabet = 65;
+    let limit = alphabet + size;
     let numeric = 1;
     for(let i = 0; i <= size; i ++){
         let tr = document.createElement("tr");
         if(i == 0){
             let th1 = document.createElement("th");
             tr.append(th1);
-            while(alphabet < (alphabet + size)){
+            while(alphabet < limit){
                 let th = document.createElement("th");
                 th.textContent = String.fromCharCode(alphabet);
                 tr.append(th);
                 alphabet ++;
                 console.log("working here");
-                console.log(alphabet,alphabet+size);
-                break;
             }
         }
         else{
+            let k = i - 1;
             let j = 0;
             let count = 0;
-            while(j <= size){
+            while(j <= size && count < size){
                 let td = document.createElement("td");
                 if(j == 0){
                     td.innerHTML = numeric;
+                    numeric ++;
                     td.setAttribute("class","gray");
                 }
                 else{
-                    td.innerHTML = array[i][count];
+                    td.innerHTML = array[k][count];
                     count ++;
                 }
                 tr.append(td);
@@ -59,5 +60,4 @@ function renderMatrix(size) {
     let displayDiv = document.getElementById("display");
     displayDiv.append(table);
     console.log(table);
-    displayDiv.append("Hello");
 }
