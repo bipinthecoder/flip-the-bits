@@ -19,7 +19,7 @@ function getInput(){
     renderMatrix(target,N);
     let h4 = document.createElement("h3");
     h4.textContent = "Your Input is::"
-    h4.style.marginTop = "8px";
+    h4.style.marginTop = "2%";
     display.append(h4);
     renderMatrix(matrix,N);
 }
