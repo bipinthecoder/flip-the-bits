@@ -1,4 +1,5 @@
 let matrix = [[0,0,0],[0,0,0],[1,1,1]];
+let globalSize = 1;
 window.addEventListener("load",()=>{
     let searchBox  = document.getElementById("input");
     let startBtn = document.getElementById("startBtn");
@@ -9,6 +10,7 @@ window.addEventListener("load",()=>{
 function getInput(){
     let searchBox  = document.getElementById("input");
     let N = parseInt(searchBox.value);
+    globalSize = N;
     console.log("value is",searchBox.value);
     // let matrix = [[0,0,0],[0,0,0],[1,1,1]]
 
@@ -25,12 +27,16 @@ function renderMatrix(array,size) {
         if(i == 0){
             let th1 = document.createElement("th");
             tr.append(th1);
+            let forIndex = 0;
             while(alphabet < limit){
                 let th = document.createElement("th");
                 th.textContent = String.fromCharCode(alphabet); //using ASCII to fill Alphabets
+                th.setAttribute("class","alphabet");
+                th.setAttribute("value",forIndex.toString());
+                th.addEventListener("click",flipMatrix);
                 tr.append(th);
                 alphabet ++;
-                console.log("working here");
+                forIndex ++;
             }
         }
         else{
@@ -65,14 +71,21 @@ function renderMatrix(array,size) {
 function flipMatrix(e){
     // console.log(e.target.innerHTML)
     let value = e.target.getAttribute("class");
-    console.log(value)
     if(value === "gray"){
         let i = Number(e.target.innerHTML) - 1;
-        for(let j = 0; j < 3; j ++){
+        for(let j = 0; j < globalSize; j ++){
             matrix[i][j] = matrix[i][j] == 0 ? 1 : 0;
         }
-        renderMatrix(matrix,3);
+        renderMatrix(matrix,globalSize);
 
+    }
+    else if(value === "alphabet"){
+        console.log(e.target.innerHTML);
+        let index = Number(e.target.getAttribute("value"));
+        for(let k = 0; k < globalSize; k ++){
+            matrix[k][index] = matrix[k][index] === 0 ? 1 : 0;
+        }
+        renderMatrix(matrix,globalSize);
     }
 
 
