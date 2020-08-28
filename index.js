@@ -1,4 +1,4 @@
-
+let matrix = [[0,0,0],[0,0,0],[1,1,1]];
 window.addEventListener("load",()=>{
     let searchBox  = document.getElementById("input");
     let startBtn = document.getElementById("startBtn");
@@ -10,13 +10,12 @@ function getInput(){
     let searchBox  = document.getElementById("input");
     let N = parseInt(searchBox.value);
     console.log("value is",searchBox.value);
-    let matrix = [[0,0,0],[0,0,0],[1,1,1]]
+    // let matrix = [[0,0,0],[0,0,0],[1,1,1]]
 
     renderMatrix(matrix,N);
 }
 
 function renderMatrix(array,size) {
-    // let array = [[0,0,0],[0,0,0],[1,1,1]];
     let table = document.createElement("table");
     let alphabet = 65;
     let limit = alphabet + size;
@@ -28,7 +27,7 @@ function renderMatrix(array,size) {
             tr.append(th1);
             while(alphabet < limit){
                 let th = document.createElement("th");
-                th.textContent = String.fromCharCode(alphabet);
+                th.textContent = String.fromCharCode(alphabet); //using ASCII to fill Alphabets
                 tr.append(th);
                 alphabet ++;
                 console.log("working here");
@@ -44,6 +43,8 @@ function renderMatrix(array,size) {
                     td.innerHTML = numeric;
                     numeric ++;
                     td.setAttribute("class","gray");
+                    td.setAttribute("name","gray");
+                    td.addEventListener("click",flipMatrix);
                 }
                 else{
                     td.innerHTML = array[k][count];
@@ -59,5 +60,20 @@ function renderMatrix(array,size) {
     table.style.marginTop = "5px";
     let displayDiv = document.getElementById("display");
     displayDiv.append(table);
-    console.log(table);
+}
+
+function flipMatrix(e){
+    // console.log(e.target.innerHTML)
+    let value = e.target.getAttribute("class");
+    console.log(value)
+    if(value === "gray"){
+        let i = Number(e.target.innerHTML) - 1;
+        for(let j = 0; j < 3; j ++){
+            matrix[i][j] = matrix[i][j] == 0 ? 1 : 0;
+        }
+        renderMatrix(matrix,3);
+
+    }
+
+
 }
