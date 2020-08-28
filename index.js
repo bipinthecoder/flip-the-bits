@@ -1,9 +1,9 @@
 let matrix = [[0,0,0],[0,0,0],[1,1,1]];
+let target = [[0,1,1],[1,0,0],[0,1,1]];
 let globalSize = 1;
 window.addEventListener("load",()=>{
     let searchBox  = document.getElementById("input");
     let startBtn = document.getElementById("startBtn");
-
     startBtn.addEventListener("click",getInput);
 });
 
@@ -12,8 +12,15 @@ function getInput(){
     let N = parseInt(searchBox.value);
     globalSize = N;
     console.log("value is",searchBox.value);
-    // let matrix = [[0,0,0],[0,0,0],[1,1,1]]
-
+    let display = document.getElementById("display");
+    let h3 = document.createElement("h3");
+    h3.textContent = "Your Target is::"
+    display.append(h3);
+    renderMatrix(target,N);
+    let h4 = document.createElement("h3");
+    h4.textContent = "Your Input is::"
+    h4.style.marginTop = "8px";
+    display.append(h4);
     renderMatrix(matrix,N);
 }
 
